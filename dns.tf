@@ -28,8 +28,7 @@ resource "openstack_dns_recordset_v2" "ipv6_hostname" {
   ttl     = 600
   type    = "AAAA"
   records = [
-    element(openstack_compute_instance_v2.node.*.access_ip_v6, count.index)
+    trim(element(openstack_compute_instance_v2.node.*.access_ip_v6, count.index), "[]")
   ]
   depends_on = [openstack_compute_instance_v2.node]
 }
-
