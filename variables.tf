@@ -90,3 +90,8 @@ variable "volume_type" {
 variable "image_user" {
   default = "centos"
 }
+
+variable "user_data" {
+  type    = string
+  default = null
+}
