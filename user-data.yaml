@@ -1,9 +1,0 @@
-#cloud-config
-write_files:
-  - content: |
-        Created with Terraform to test NREC gold image
-    path: /etc/motd
-## limit the root partition to 8 gigabytes, then create a new partition filling available space
-#bootcmd:
-#  - [ cloud-init-per, once, move-second-header, sgdisk, --move-second-header, /dev/sda ]
-#  - [ cloud-init-per, once, create-a-partition, parted, --script, /dev/sda, 'mkpart 2 8GB -1' ]
