@@ -96,7 +96,7 @@ resource "openstack_compute_instance_v2" "node" {
 }
 
 ## Volume
-resource "openstack_blockstorage_volume_v2" "volume" {
+resource "openstack_blockstorage_volume_v3" "volume" {
   count       = var.volume_size > 0 ? var.node_count : 0
   region      = var.region
   name        = "${var.name}-${format("${var.volume_name}%03d", count.index + 1)}"
@@ -109,6 +109,6 @@ resource "openstack_compute_volume_attach_v2" "volumes" {
   count       = var.volume_size > 0 ? var.node_count : 0
   region      = var.region
   instance_id = openstack_compute_instance_v2.node.*.id[count.index]
-  volume_id   = openstack_blockstorage_volume_v2.volume.*.id[count.index]
+  volume_id   = openstack_blockstorage_volume_v3.volume.*.id[count.index]
 }
 
