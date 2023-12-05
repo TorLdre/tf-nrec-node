@@ -48,6 +48,8 @@ variable "ssh_public_key" {}
 
 variable "ssh_port" { default = 22 }
 
+variable "rdp_port" { default = 3389 }
+
 variable "node_count" { default = 1 }
 
 
