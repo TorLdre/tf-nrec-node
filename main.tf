@@ -39,7 +39,7 @@ resource "openstack_networking_secgroup_rule_v2" "rule_ssh_access_ipv6" {
 }
 
 # Allow rdp from IPv4 net
-resource "openstack_networking_secgroup_rule_v2" "rule_ssh_access_ipv4" {
+resource "openstack_networking_secgroup_rule_v2" "rule_rdp_access_ipv4" {
   count             = length(var.allow_rdp_from_v4)
   region            = var.region
   direction         = "ingress"
@@ -52,7 +52,7 @@ resource "openstack_networking_secgroup_rule_v2" "rule_ssh_access_ipv4" {
 }
 
 # Allow rdp from IPv6 net
-resource "openstack_networking_secgroup_rule_v2" "rule_ssh_access_ipv6" {
+resource "openstack_networking_secgroup_rule_v2" "rule_rdp_access_ipv6" {
   count             = length(var.allow_rdp_from_v6)
   region            = var.region
   direction         = "ingress"
