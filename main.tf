@@ -78,6 +78,10 @@ resource "openstack_compute_instance_v2" "node" {
   availability_zone = "${var.region}-${var.az}"
   security_groups   = concat(["default", "${var.name}_basic"], var.sec_group)
 
+  lifecycle {
+    ignore_changes = [image_name,image_id]
+  }
+
   network {
     name = var.network
   }
