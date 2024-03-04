@@ -60,6 +60,58 @@ resource "openstack_networking_secgroup_rule_v2" "rule_icmp_access_ipv6" {
   security_group_id = openstack_networking_secgroup_v2.basic.id
 }
 
+# Allow http from IPv4 net
+resource "openstack_networking_secgroup_rule_v2" "rule_http_access_ipv4" {
+  count             = length(var.allow_http_from_v4)
+  region            = var.region
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 80
+  port_range_max    = 80
+  remote_ip_prefix  = element(var.allow_http_from_v4, count.index)
+  security_group_id = openstack_networking_secgroup_v2.basic.id
+}
+
+# Allow http from IPv6 net
+resource "openstack_networking_secgroup_rule_v2" "rule_http_access_ipv6" {
+  count             = length(var.allow_http_from_v6)
+  region            = var.region
+  direction         = "ingress"
+  ethertype         = "IPv6"
+  protocol          = "tcp"
+  port_range_min    = 80
+  port_range_max    = 80
+  remote_ip_prefix  = element(var.allow_http_from_v6, count.index)
+  security_group_id = openstack_networking_secgroup_v2.basic.id
+}
+
+# Allow https from IPv4 net
+resource "openstack_networking_secgroup_rule_v2" "rule_https_access_ipv4" {
+  count             = length(var.allow_http_from_v4)
+  region            = var.region
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 443
+  port_range_max    = 443
+  remote_ip_prefix  = element(var.allow_http_from_v4, count.index)
+  security_group_id = openstack_networking_secgroup_v2.basic.id
+}
+
+# Allow https from IPv6 net
+resource "openstack_networking_secgroup_rule_v2" "rule_https_access_ipv6" {
+  count             = length(var.allow_http_from_v6)
+  region            = var.region
+  direction         = "ingress"
+  ethertype         = "IPv6"
+  protocol          = "tcp"
+  port_range_min    = 443
+  port_range_max    = 443
+  remote_ip_prefix  = element(var.allow_http_from_v6, count.index)
+  security_group_id = openstack_networking_secgroup_v2.basic.id
+}
+
 # Get image id for image name
 # this is only used if image_id is empty
 data "openstack_images_image_v2" "image" {
@@ -79,7 +131,7 @@ resource "openstack_compute_instance_v2" "node" {
   security_groups   = concat(["default", "${var.name}_basic"], var.sec_group)
 
   lifecycle {
-    ignore_changes = [image_name,image_id]
+    ignore_changes = [image_name, image_id]
   }
 
   network {

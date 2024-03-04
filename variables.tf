@@ -24,6 +24,16 @@ variable "allow_icmp_from_v4" {
   default = ["0.0.0.0/0"]
 }
 
+variable "allow_http_from_v6" {
+  type    = list(string)
+  default = []
+}
+
+variable "allow_http_from_v4" {
+  type    = list(string)
+  default = []
+}
+
 variable "sec_group" {
   type    = list(string)
   default = []
