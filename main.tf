@@ -131,7 +131,7 @@ resource "openstack_compute_instance_v2" "node" {
   security_groups   = concat(["default", "${var.name}_basic"], var.sec_group)
 
   lifecycle {
-    ignore_changes = [image_name, image_id]
+    ignore_changes = [image_name, image_id, user_data, flavor_name, flavor_id]
   }
 
   network {
