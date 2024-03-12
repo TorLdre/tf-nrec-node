@@ -33,3 +33,11 @@ resource "openstack_dns_recordset_v2" "ipv6_hostname" {
   depends_on = [openstack_compute_instance_v2.node]
 }
 
+resource "openstack_dns_recordset_v2" "CNAMEs" {
+  count       = length(var.cnames)
+  zone_id     = element(data.openstack_dns_zone_v2.hostname_zone.*.id, 0)
+  name        = join("", [element(var.cnames_v4, count.index), ".${var.zone_name}."])
+  description = "CNAME for RAIL services"
+  type        = "CNAME"
+  records     = ["${element(openstack_compute_instance_v2.node.*.name, count.index)}."]
+}

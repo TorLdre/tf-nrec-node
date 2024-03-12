@@ -84,6 +84,11 @@ variable "domain" {
   default = "local"
 }
 
+variable "cnames" {
+  type    = list(string)
+  default = []
+}
+
 variable "metadata" {
   type    = map(any)
   default = {}
