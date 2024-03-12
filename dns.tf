@@ -43,7 +43,7 @@ resource "openstack_dns_recordset_v2" "CNAMEs" {
 }
 
 resource "openstack_dns_recordset_v2" "ipv4_record_workload_ingress_ip" {
-  count       = length(var.wc_ingress)
+  count       = var.wc_ingress == null ? 0 : 1
   zone_id     = element(data.openstack_dns_zone_v2.hostname_zone.*.id, 0)
   name        = "*.${var.zone_name}."
   description = "IPv4 ingress for workload cluster"
@@ -52,7 +52,7 @@ resource "openstack_dns_recordset_v2" "ipv4_record_workload_ingress_ip" {
 }
 
 resource "openstack_dns_recordset_v2" "ipv6_record_workload_ingress_ip" {
-  count       = length(var.wc_ingress)
+  count       = var.wc_ingress == null ? 0 : 1
   zone_id     = element(data.openstack_dns_zone_v2.hostname_zone.*.id, 0)
   name        = "*.${var.zone_name}."
   description = "IPv4 ingress for workload cluster"
