@@ -89,6 +89,12 @@ variable "cnames" {
   default = []
 }
 
+# IPv4/IPv6 pair
+variable "wc_ingress" {
+  type    = list(string)
+  default = []
+}
+
 variable "metadata" {
   type    = map(any)
   default = {}
