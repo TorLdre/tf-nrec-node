@@ -92,7 +92,7 @@ variable "cnames" {
 # IPv4/IPv6 pair
 variable "wc_ingress" {
   type    = list(string)
-  default = []
+  default = null
 }
 
 variable "metadata" {
