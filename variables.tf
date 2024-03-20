@@ -34,6 +34,11 @@ variable "allow_http_from_v4" {
   default = []
 }
 
+variable "allow_bfd_from_v4" {
+  type    = list(string)
+  default = []
+}
+
 variable "sec_group" {
   type    = list(string)
   default = []

@@ -112,6 +112,19 @@ resource "openstack_networking_secgroup_rule_v2" "rule_https_access_ipv6" {
   security_group_id = openstack_networking_secgroup_v2.basic.id
 }
 
+# Allow IPv4 BFD from BGP peers
+resource "openstack_networking_secgroup_rule_v2" "rule_bfd_access_ipv4" {
+  count             = length(var.allow_bfd_from_v4)
+  region            = var.region
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "udp"
+  port_range_min    = 4784
+  port_range_max    = 4785
+  remote_ip_prefix  = element(var.allow_bfd_from_v4, count.index)
+  security_group_id = openstack_networking_secgroup_v2.basic.id
+}
+
 # Get image id for image name
 # this is only used if image_id is empty
 data "openstack_images_image_v2" "image" {
