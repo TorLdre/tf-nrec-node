@@ -77,6 +77,11 @@ variable "network" {
   default = "IPv6"
 }
 
+variable "additional_network" {
+  type    = list(string)
+  default = []
+}
+
 variable "az" {
   default = "default-1"
 }

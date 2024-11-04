@@ -163,6 +163,14 @@ resource "openstack_compute_instance_v2" "node" {
   network {
     name = var.network
   }
+
+  dynamic "network" {
+    for_each = var.additional_network
+    content {
+      name = network.value
+    }
+  }
+
   metadata   = var.metadata
   depends_on = [openstack_networking_secgroup_v2.basic]
 
