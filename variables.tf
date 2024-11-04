@@ -110,6 +110,12 @@ variable "wc_ingress" {
   default = null
 }
 
+# IPv4 internal smtp ingress
+variable "smtp_ingress" {
+  type    = list(string)
+  default = null
+}
+
 variable "metadata" {
   type    = map(any)
   default = {}

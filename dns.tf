@@ -59,3 +59,12 @@ resource "openstack_dns_recordset_v2" "ipv6_record_workload_ingress_ip" {
   type        = "AAAA"
   records     = [tolist(var.wc_ingress, )[1]]
 }
+
+resource "openstack_dns_recordset_v2" "ipv4_record_smtp_ingress_ip" {
+  count       = var.smtp_ingress == null ? 0 : 1
+  zone_id     = element(data.openstack_dns_zone_v2.hostname_zone.*.id, 0)
+  name        = "smtp.${var.zone_name}."
+  description = "IPv4 ingress for smtp proxies"
+  type        = "A"
+  records     = [tolist(var.smtp_ingress, )[0]]
+}
