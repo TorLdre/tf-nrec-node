@@ -125,6 +125,19 @@ resource "openstack_networking_secgroup_rule_v2" "rule_bfd_access_ipv4" {
   security_group_id = openstack_networking_secgroup_v2.basic.id
 }
 
+# Allow IPv6 BFD from BGP peers
+resource "openstack_networking_secgroup_rule_v2" "rule_bfd_access_ipv4" {
+  count             = length(var.allow_bfd_from_v6)
+  region            = var.region
+  direction         = "ingress"
+  ethertype         = "IPv6"
+  protocol          = "udp"
+  port_range_min    = 4784
+  port_range_max    = 4785
+  remote_ip_prefix  = element(var.allow_bfd_from_v6, count.index)
+  security_group_id = openstack_networking_secgroup_v2.basic.id
+}
+
 # Allow smtp from IPv4 net
 resource "openstack_networking_secgroup_rule_v2" "rule_smtp_access_ipv4" {
   count             = length(var.allow_smtp_from_v4)
