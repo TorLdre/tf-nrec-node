@@ -126,7 +126,7 @@ resource "openstack_networking_secgroup_rule_v2" "rule_bfd_access_ipv4" {
 }
 
 # Allow IPv6 BFD from BGP peers
-resource "openstack_networking_secgroup_rule_v2" "rule_bfd_access_ipv4" {
+resource "openstack_networking_secgroup_rule_v2" "rule_bfd_access_ipv6" {
   count             = length(var.allow_bfd_from_v6)
   region            = var.region
   direction         = "ingress"
